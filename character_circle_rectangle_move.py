@@ -34,13 +34,13 @@ def run_rectangle():
 		render_frame(x, 90)
 
 
-	# for x in range(750, 50, -10):
-	# 	render_frame(x, 90)
+	for x in range(750, 50, -10):
+		render_frame(x, 550)
 
 	pass
 
 while True:
-	run_circle()
+	#run_circle()
 	run_rectangle()
 
 	break
