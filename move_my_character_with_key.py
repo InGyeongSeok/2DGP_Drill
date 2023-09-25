@@ -42,7 +42,7 @@ def handle_events():
 
 
 running = True
-x, y = TUK_WIDTH // 2, 250
+x, y = 100, 230
 frame = 0
 dirx = 0
 diry = 0
