@@ -1,7 +1,7 @@
 from pico2d import *
 
 
-TUK_WIDTH, TUK_HEIGHT = 1280, 1024
+TUK_WIDTH, TUK_HEIGHT = 1000, 800
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('jake.png')
@@ -53,12 +53,29 @@ diry = 0
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH//2, TUK_HEIGHT//2)
-    character.clip_draw(frame * 100, 100, 100, 100, x, y)
+    #character.clip_draw( frame * 25 + 10, 0, 30, 60, 300, 300, 100, 100)
+
+    if dirx == 0 and diry == 0: #IDLE
+        character.clip_draw(frame * 25 + 10, 326, 27, 50, 100, 400, 100, 100)
+        frame = (frame + 1) % 3
+        delay(0.1)
+
+    if dirx > 0 and diry == 0: # RIGHT
+        if frame <= 2:
+            character.clip_draw(frame * 25 + 10, 280, 27, 50, 100, 400, 100, 100)
+        if frame == 3:
+            character.clip_draw(frame * 25 + 20, 285, 35, 49, 100, 400, 100, 100)
+        if frame == 4:
+            character.clip_draw(frame * 28 + 20, 285, 36, 49, 100, 400, 100, 100)
+        if frame == 5:
+            character.clip_draw(frame * 28 + 28,  285, 30, 49, 100, 400, 100, 100)
+        if frame == 6:
+            character.clip_draw(frame * 28 + 28,  285, 30, 49, 100, 400, 100, 100)
+        frame = (frame + 1) % 7
+        delay(0.1)
+
+
     update_canvas()
     handle_events()
-    frame = (frame + 1) % 8
-    x += dirx * 5
-    y += diry * 5
-    delay(0.05)
 
 close_canvas()
