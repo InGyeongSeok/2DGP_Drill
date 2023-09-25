@@ -48,7 +48,6 @@ dirx = 0
 diry = 0
 
 
-
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH//2, TUK_HEIGHT//2)
@@ -122,6 +121,75 @@ while running:
             y += diry * 10
         delay(0.1)
 
+    if dirx > 0 and diry > 0: # UP &  RIGHT
+        if frame <= 2:
+            character.clip_draw(frame * 25 + 10, 190, 27, 50, x, y, 100, 100)
+        if frame == 3:
+            character.clip_draw(frame * 25 + 20, 190, 35, 49, x, y, 100, 100)
+        if frame == 4:
+            character.clip_draw(frame * 28 + 20, 190, 36, 49, x, y, 100, 100)
+        if frame == 5:
+            character.clip_draw(frame * 28 + 28, 190, 30, 49, x, y, 100, 100)
+        if frame == 6:
+            character.clip_draw(frame * 28 + 28, 190, 30, 49, x, y, 100, 100)
+        frame = (frame + 1) % 7
+        if x < TUK_WIDTH - 50 and y < TUK_HEIGHT - 50:
+            x += dirx * 10
+            y += diry * 10
+        delay(0.1)
+
+    if dirx < 0 and diry > 0: # UP & LEFT
+        if frame <= 2:
+            character.clip_draw(frame * 25 + 10, 190, 27, 50, x, y, 100, 100)
+        if frame == 3:
+            character.clip_draw(frame * 25 + 20, 190, 35, 49, x, y, 100, 100)
+        if frame == 4:
+            character.clip_draw(frame * 28 + 20, 190, 36, 49, x, y, 100, 100)
+        if frame == 5:
+            character.clip_draw(frame * 28 + 28, 190, 30, 49, x, y, 100, 100)
+        if frame == 6:
+            character.clip_draw(frame * 28 + 28, 190, 30, 49, x, y, 100, 100)
+        frame = (frame + 1) % 7
+        if x > 50 and y < TUK_HEIGHT - 50:
+            x += dirx * 10
+            y += diry * 10
+        delay(0.1)
+
+    if dirx < 0 and diry < 0: # DOWN & LEFT
+        if frame <= 2:
+            character.clip_draw(frame * 25 + 10, 326, 27, 50, x, y, 100, 100)
+        if frame == 3:
+            character.clip_draw(frame * 25 + 20, 326, 35, 49, x, y, 100, 100)
+        if frame == 4:
+            character.clip_draw(frame * 28 + 20, 330, 36, 49, x, y, 100, 100)
+        if frame == 5:
+            character.clip_draw(frame * 28 + 28, 326, 30, 49, x, y, 100, 100)
+        if frame == 6:
+            character.clip_draw(frame * 28 + 28, 326, 30, 49, x, y, 100, 100)
+        frame = (frame + 1) % 7
+        if x > 50 and y > 50:
+            x += dirx * 10
+            y += diry * 10
+        delay(0.1)
+
+    if dirx > 0 and diry < 0: # DOWN & RIGHT
+        if frame <= 2:
+            character.clip_draw(frame * 25 + 10, 326, 27, 50, x, y, 100, 100)
+        if frame == 3:
+            character.clip_draw(frame * 25 + 20, 326, 35, 49, x, y, 100, 100)
+        if frame == 4:
+            character.clip_draw(frame * 28 + 20, 330, 36, 49, x, y, 100, 100)
+        if frame == 5:
+            character.clip_draw(frame * 28 + 28, 326, 30, 49, x, y, 100, 100)
+        if frame == 6:
+            character.clip_draw(frame * 28 + 28, 326, 30, 49, x, y, 100, 100)
+        frame = (frame + 1) % 7
+        if x < TUK_WIDTH - 50 and y > 50:
+            x += dirx * 10
+            y += diry * 10
+
+
+        delay(0.1)
     update_canvas()
     handle_events()
 
