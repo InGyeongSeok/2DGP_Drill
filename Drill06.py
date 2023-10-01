@@ -47,7 +47,7 @@ while running:
         frame = (frame + 1) % 8
 
     elif hand_point and t < 1:
-        t += 0.001
+        t += 0.002
         x = (1 - t) * startx + t * hand_point[0][0]
         y = (1 - t) * starty + t * hand_point[0][1]
         character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
