@@ -22,8 +22,8 @@ def handle_events():
             running = False
         elif event.type == SDL_MOUSEMOTION:
             mx, my = event.x, TUK_HEIGHT - 1 - event.y
-        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT: # 마우스 클릭이 있으면..
-            points.append((event.x, TUK_HEIGHT -1 - event.y)) # 클릭된 위치를 새로운 점으로 추가.
+        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:  # 마우스 클릭이 있으면..
+            points.append((event.x, TUK_HEIGHT - 1 - event.y))  # 클릭된 위치를 새로운 점으로 추가.
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
     pass
@@ -40,7 +40,7 @@ def reset_world():
     cx, cy = TUK_WIDTH // 2, TUK_HEIGHT // 2
     frame = 0
     action = 3
-    points = [ ]
+    points = []
     set_new_target_arrow()
 
 
@@ -49,7 +49,7 @@ def set_new_target_arrow():
     global action
     global frame
     global target_exists
-    if points: #points 리스트안에 남아있는 점이 있으면,
+    if points:  # points 리스트안에 남아있는 점이 있으면,
         sx, sy = cx, cy  # p1 : 시작점.
         # hx, hy = 50 ,50
         hx, hy = points[0]  # p2 : 끝점.
@@ -58,7 +58,7 @@ def set_new_target_arrow():
         frame = 0
         target_exists = True
     else:
-        action = 3 if action == 1 else 2 # 이전에 소년이 우측으로 이동중이었으면, IDLE 동작시 우측을 바라보도록
+        action = 3 if action == 1 else 2  # 이전에 소년이 우측으로 이동중이었으면, IDLE 동작시 우측을 바라보도록
         frame = 0
         target_exists = False
 
@@ -85,12 +85,13 @@ def update_world():
             cx = (1 - t) * sx + t * hx  # cx는 시작 x와 끝 x를 1-t:t 의 비율로 섞은 위치
             cy = (1 - t) * sy + t * hy
             t += 0.001
-        else: # 목표지점에 도달하면
-            cx, cy = hx, hy # 캐릭터 위치를 기존 목적지 위치와 강제로 정확이 일치시킴.
-            del points[0] # 목표지점에 왔기 때문에, 더 이상 필요없는 점을 삭제
+        else:  # 목표지점에 도달하면
+            cx, cy = hx, hy  # 캐릭터 위치를 기존 목적지 위치와 강제로 정확이 일치시킴.
+            del points[0]  # 목표지점에 왔기 때문에, 더 이상 필요없는 점을 삭제
             set_new_target_arrow()
-    elif points: # 목표 지점에 없는 상황에서, 새로운 목표 지점이 생기면...
+    elif points:  # 목표 지점에 없는 상황에서, 새로운 목표 지점이 생기면...
         set_new_target_arrow()
+
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 hide_cursor()
