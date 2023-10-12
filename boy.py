@@ -92,10 +92,15 @@ class AutoRun:
 
     @staticmethod
     def enter(boy, e):
-        if right_down(e) or left_up(e):  # 오른쪽으로 RUN
+        print(boy.action)
+        if boy.action == 3:
             boy.dir, boy.action = 1, 1
-        elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
+        elif boy.action == 2:
             boy.dir, boy.action = -1, 0
+        # if right_down(e) or left_up(e):  # 오른쪽으로 RUN
+        #     boy.dir, boy.action = 1, 1
+        # elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
+        #     boy.dir, boy.action = -1, 0
         boy.start_time = get_time()  # 경과시간
 
         print('AutoRun Enter')
