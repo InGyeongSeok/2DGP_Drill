@@ -94,13 +94,10 @@ class AutoRun:
     def enter(boy, e):
         print(boy.action)
         if boy.action == 3:
-            boy.dir, boy.action = 1, 1
+            boy.dir, boy.action = 1, 1 # 오른쪽으로 RUN
         elif boy.action == 2:
-            boy.dir, boy.action = -1, 0
-        # if right_down(e) or left_up(e):  # 오른쪽으로 RUN
-        #     boy.dir, boy.action = 1, 1
-        # elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
-        #     boy.dir, boy.action = -1, 0
+            boy.dir, boy.action = -1, 0   # 왼쪽으로 RUN
+
         boy.start_time = get_time()  # 경과시간
 
         print('AutoRun Enter')
@@ -112,9 +109,14 @@ class AutoRun:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        boy.x += boy.dir * 5
+        boy.x += boy.dir * 10
         if get_time() - boy.start_time > 5:
             boy.state_machine.handle_event(('TIME_OUT', 0))
+
+        if boy.x > 750:
+            boy.dir, boy.action = -1, 0
+        elif boy.x < 50:
+            boy.dir, boy.action = 1, 1
 
         print('AutoRun Do')
 
