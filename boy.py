@@ -32,6 +32,7 @@ def left_down(e):
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
+
 def a_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
 
@@ -93,15 +94,16 @@ class Run:
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
         pass
 
+
 class AutoRun:
 
     @staticmethod
     def enter(boy, e):
         print(boy.action)
         if boy.action == 3:
-            boy.dir, boy.action = 1, 1 # 오른쪽으로 RUN
+            boy.dir, boy.action = 1, 1  # 오른쪽으로 RUN
         elif boy.action == 2:
-            boy.dir, boy.action = -1, 0   # 왼쪽으로 RUN
+            boy.dir, boy.action = -1, 0  # 왼쪽으로 RUN
 
         boy.start_time = get_time()  # 경과시간
 
@@ -127,10 +129,9 @@ class AutoRun:
 
         print('AutoRun Do')
 
-
     @staticmethod
     def draw(boy):
-        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y+30, 200, 200)
+        boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y + 30, 200, 200)
         pass
 
 
