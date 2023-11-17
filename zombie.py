@@ -101,10 +101,17 @@ class Zombie:
         else:
             return BehaviorTree.RUNNING
 
-    def move_to(self, r=0.5): # 0.5 미터
+    def flee_to(self, r=0.5): # 0.5 미터
         self.state = 'Walk'
-        self.move_slightly_to(self.tx, self.ty)
-        if self.distance_less_than(self.tx, self.ty, self.x, self.y, r):
+        dx = self.x - play_mode.boy.x
+        dy = self.y - play_mode.boy.y
+
+        flee_x = self.x + r * dx
+        flee_y = self.y + r * dy
+
+        self.move_slightly_to(flee_x, flee_y)
+
+        if self.distance_less_than(flee_x, flee_y, self.x, self.y, r):
             return BehaviorTree.SUCCESS
         else:
             return BehaviorTree.RUNNING
@@ -141,30 +148,29 @@ class Zombie:
 
 
     def build_behavior_tree(self):
+
+    # 7미터 안에서 // 공개수 판단 --> 많으면 다가가고 적으면 도망간다 // 배회
+
         a1 = Action('Set target location', self.set_target_location, 500, 50)
         a2 = Action('Move to', self.move_to)
 
         SEQ_move_to_target_location = Sequence('Move to target location', a1, a2)
 
         a3 = Action('Set random location', self.set_random_location)
-
-        SEQ_wander = Sequence('Wander', a3, a2) #배회
-
-        c1 = Condition('소년이 근처에 있는가?', self.is_boy_nearby, 7) # 7미터
-
         a4 = Action('소년한테 접근', self.move_to_boy)
 
-        SEQ_chase_boy = Sequence('소년을 추적', c1, a4) # 추적
+        a5 = Action('도망', self.flee_to)
 
-
-        # a5 = Action('순찰 위치 가져오기', self.get_patrol_location)
-        # SEQ_patrol = Sequence('순찰', a5, a2)
-
+        c1 = Condition('소년이 근처에 있는가?', self.is_boy_nearby, 7) # 7미터
         c2 = Condition('공이 많은가?', self.is_ball_count)
 
-        SEL_chase_or_wander = Selector('추적 또는 배회', SEQ_chase_boy, SEQ_wander)
+        SEQ_wander = Sequence('Wander', a3, a2)  # 배회
 
-        root = SEQ_TEST = Selector('공 개수', c2, SEL_chase_or_wander)
+        SEQ_chase_boy = Sequence('소년을 추적',  c2, a4) # 추적
+
+        SEL_chase_or_flee = Selector('추적 또는 도망', SEQ_chase_boy, a5)
+
+        SEQ_check_distance = Sequence('Check Distance', c1, SEL_chase_or_flee)
+        root = Selector('좀비 행동', SEQ_check_distance, SEQ_wander)
 
         self.bt = BehaviorTree(root)
-
