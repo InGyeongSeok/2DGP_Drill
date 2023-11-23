@@ -21,6 +21,7 @@ class Ball:
         # draw_rectangle(*self.get_bb())
 
     def update(self):
+
         pass
 
     def get_bb(self):
